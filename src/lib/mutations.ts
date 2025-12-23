@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import api from './axios';
 
 export async function createUser(userData: FormData) {
@@ -72,15 +71,14 @@ export async function deleteProduct(productId: string) {
 export async function addProductToCart(productId: string, decrease: boolean) {
   let baseURL = '/cart';
   // /cart
-  if(decrease){
-    baseURL += `?decrease=${decrease}`
+  if (decrease) {
+    baseURL += `?decrease=${decrease}`;
   }
   // /cartbaseURL? decrease=true
 
   // /cart?decrease=true
   // /cart?decrease=undefined
   // /cart
-
 
   // /cart?decrease=false
 

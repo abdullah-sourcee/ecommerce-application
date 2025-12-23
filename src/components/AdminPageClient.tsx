@@ -1,10 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, ReactNode, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-
-export default function AdminPageClient({children,}: {children: React.ReactNode;}) {
+export default function AdminPageClient({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const role = JSON.parse(localStorage.getItem('user') || '{}')?.role;
@@ -16,7 +19,7 @@ export default function AdminPageClient({children,}: {children: React.ReactNode;
     }
   }, [role, router]);
 
-  if(!isLoading){
+  if (!isLoading) {
     return null;
   }
 

@@ -96,7 +96,7 @@ export default function LoginPage() {
 
         <div className='mt-3'>
           <button
-          disabled={isSubmitting}
+            disabled={isSubmitting}
             onClick={handleLoginUser}
             type='submit'
             className='btn btn-wide mt-3 bg-blue-400'

@@ -1,9 +1,10 @@
 'use client';
 
-import * as React from 'react';
-import ButtonLink from '@/components/links/ButtonLink';
-import { usePathname } from 'next/navigation';
 import { ShoppingCart } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import * as React from 'react';
+
+import ButtonLink from '@/components/links/ButtonLink';
 
 export default function Navbar() {
   const pathname = usePathname();

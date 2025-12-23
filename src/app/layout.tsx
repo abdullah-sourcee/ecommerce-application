@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import * as React from 'react';
+
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
-import { siteConfig } from '@/constant/config';
 import QueryProvider from '@/components/QueryProvider';
+
 import Navbar from '@/app/components/Navbar';
+import { siteConfig } from '@/constant/config';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -42,7 +44,6 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/images/og.jpg`],
     // creator: '@th_clarence',
   },
-
 };
 
 export default function RootLayout({
@@ -54,10 +55,9 @@ export default function RootLayout({
     <html data-theme='light'>
       <body>
         <QueryProvider>
-          <Navbar/>
+          <Navbar />
           {children}
-          
-          </QueryProvider>
+        </QueryProvider>
       </body>
     </html>
   );
