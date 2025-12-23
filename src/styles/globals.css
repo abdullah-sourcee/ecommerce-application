@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
-
+@plugin "daisyui";
 @theme {
   /* Font configuration */
   --font-primary: 'Inter', system-ui, sans-serif;
