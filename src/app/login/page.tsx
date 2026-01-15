@@ -1,41 +1,56 @@
 'use client';
 
-import { loginUser } from '@/lib/mutations';
-import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { CloudCog } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+
+import { loginUser } from '@/lib/mutations';
+
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
 export default function LoginPage() {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm();
-
-  const loginUserMutation = useMutation({
-    mutationFn: (userData) => loginUser(userData),
-    onSuccess: () => {
-      alert('User successfully login');
-    },
-    onError: (error) => {
-      alert(`Error: ${error.response.data.message}`);
+  } = useForm<LoginFormData>({
+    defaultValues: {
+      email: '',
+      password: '',
     },
   });
 
-  const handleLoginUser = async (e) => {
-    e.preventDefault();
-    const userData = {
-      email: watch().email || '',
-      password: watch().password || '',
-    };
+  const loginUserMutation = useMutation({
+    mutationFn: (userData: LoginFormData) => loginUser(userData),
+    onSuccess: (data) => {
+      alert(`Success: ${data.message}`);
+      reset();
+    },
+    onError: (error: any) => {
+      console.log("error fromlogin is::",error?.response?.data?.message);
+      alert(`Error: ${error.response?.data?.message || error.message}`);
+    },
+  });
 
-    loginUserMutation.mutate(userData);
+  // const handleLoginUser = async (e) => {
+  //   e.preventDefault();
+  //   const userData = {
+  //     email: watch().email || '',
+  //     password: watch().password || '',
+  //   };
+
+  //   loginUserMutation.mutate(userData);
+  // };
+  const handleLoginUser = (data: LoginFormData) => {
+    loginUserMutation.mutate(data);
   };
-  // console.log(watch);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(handleLoginUser)}>
       <div className='flex items-center justify-center content-center flex-col'>
         <div>
           <h1>Login Page</h1>
@@ -78,26 +93,14 @@ export default function LoginPage() {
             className='input validator'
             required
             placeholder='Password'
-            minLength='6'
-            // pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-            // title='Must be more than 8 characters, including number, lowercase letter, uppercase letter'
+            minLength={6}
           />
-          {/* <p className='validator-hint'>
-          Must be more than 8 characters, including
-          <br />
-          At least one number
-          <br />
-          At least one lowercase letter
-          <br />
-          At least one uppercase letter
-        </p> */}
         </div>
         {/* Login Button */}
 
         <div className='mt-3'>
           <button
             disabled={isSubmitting}
-            onClick={handleLoginUser}
             type='submit'
             className='btn btn-wide mt-3 bg-blue-400'
           >

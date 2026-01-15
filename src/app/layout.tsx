@@ -7,8 +7,14 @@ import '@/styles/colors.css';
 
 import QueryProvider from '@/components/QueryProvider';
 
-import Navbar from '@/app/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { siteConfig } from '@/constant/config';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -46,17 +52,31 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // const queryClient = new QueryClient();
+  // const cookieStore = await cookies();
+
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['Rtoken'],
+  //   queryFn: () => cookieStore.get('token')?.value,
+  // });
+
+  // const token = queryClient.getQueryData(['token']);
+
+  // const dehydratedState = dehydrate(queryClient);
+
   return (
     <html data-theme='light'>
       <body>
         <QueryProvider>
+          {/* <HydrationBoundary state={dehydratedState}> */}
           <Navbar />
           {children}
+          {/* </HydrationBoundary> */}
         </QueryProvider>
       </body>
     </html>

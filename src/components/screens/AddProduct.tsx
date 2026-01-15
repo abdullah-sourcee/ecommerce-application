@@ -1,59 +1,92 @@
 'use client';
 
-import AdminPageClient from '@/components/AdminPageClient';
-import { addProduct } from '@/lib/mutations';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
-export default function AddProduct() {
+import { addProduct } from '@/lib/mutations';
+
+import AdminPageClient from '@/components/AdminPageClient';
+import CustomDropdown from '@/components/CustomDropdown';
+
+export default function AddProductScreen() {
+  // const token = props.token;
+
+  const { data: token } = useQuery({
+    queryKey: ['token'],
+    queryFn: () => null,
+  });
+
   const {
     register,
     watch,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      category: '',
+      name: '',
+      description: '',
+      brand: '',
+      price: '',
+      stock: '',
+      productImages: undefined,
+    },
+  });
 
   const createProductMutation = useMutation({
-    mutationFn: (userData) => addProduct(userData),
+    mutationFn: (userData: FormData) => {
+      if (!token) {
+        throw new Error('Token is required');
+      }
+      return addProduct(userData, token);
+    },
     onSuccess: () => {
       alert('Product added');
+      reset();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       alert(`Error: ${error.response.data.message}`);
     },
   });
 
-  const handleAddProduct = async (e) => {
-    try {
-      e.preventDefault();
-      // console.log("Abdullah")
-      const productImageFile = watch().productImages?.[0];
-      const formData = new FormData();
+  const handleAddProduct = (data: any) => {
+    const productImageFile = data.productImages?.[0];
 
-      formData.append('category', watch().category || '');
-      formData.append('name', watch().name || '');
-      formData.append('description', watch().description || '');
-      formData.append('brand', watch().brand || '');
-      formData.append('price', watch().price || '');
-      formData.append('stock', watch().stock || '');
-
-      if (productImageFile) {
-        formData.append('productImages', productImageFile);
-      }
-      console.log('Data', watch());
-      createProductMutation.mutate(formData);
-    } catch (error) {
-      console.log(error);
+    const formData = new FormData();
+    formData.append('category', data.category || '');
+    formData.append('name', data.name || '');
+    formData.append('description', data.description || '');
+    formData.append('brand', data.brand || '');
+    formData.append('price', data.price || '');
+    formData.append('stock', data.stock || '');
+    if (productImageFile) {
+      formData.append('productImages', productImageFile);
     }
+    createProductMutation.mutate(formData);
   };
 
+  const categoryOptions = [
+    'men clothing',
+    'women clothing',
+    'women shoes',
+    'men shoes',
+    'toys',
+    'football',
+    'books',
+    'personal computers',
+    'jewelery',
+    'electronics',
+    'sports',
+    'all products',
+  ];
+
   return (
-    <AdminPageClient>
       <div className='flex items-center justify-center content-center flex-col'>
         <h1>Add Product</h1>
-        <form method='post'>
+        <form onSubmit={handleSubmit(handleAddProduct)}>
           {/* Category */}
-          <div className='mt-3 flex gap-4 items-center'>
+          {/* <div className='mt-3 flex gap-4 items-center'>
             <label className='w-32 text-left'>Category:</label>
             <input
               {...register('category', { required: 'Category is required' })}
@@ -61,7 +94,14 @@ export default function AddProduct() {
               placeholder='Category'
               className='input'
             />
-          </div>
+          </div> */}
+
+          <CustomDropdown
+            label='Category'
+            id='category'
+            options={categoryOptions}
+            register={register('category')}
+          />
 
           {/* name */}
           <div className='mt-3 flex gap-4 items-center'>
@@ -138,7 +178,6 @@ export default function AddProduct() {
           <div className='mt-3 flex items-center justify-center'>
             <button
               disabled={isSubmitting}
-              onClick={handleAddProduct}
               type='submit'
               className='btn btn-wide mt-3 bg-blue-400'
             >
@@ -147,6 +186,5 @@ export default function AddProduct() {
           </div>
         </form>
       </div>
-    </AdminPageClient>
   );
 }

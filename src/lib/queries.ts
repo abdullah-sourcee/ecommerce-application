@@ -1,38 +1,75 @@
-import api from '@/lib/axios';
+// import api from '@/lib/axios';
+import { backendApi, externalApi } from './axios';
 
-export async function fetchProducts() {
-  const response = await api.get('/admin/products', {
+export async function fetchProducts(token?: string) {
+  const response = await backendApi.get('/admin/products', {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });
   // console.log(response.data.data.products)
   return response.data.data.products;
 }
 
-export async function getProductsRequestId(productId: string) {
-  const response = await api.get(`/admin/products/${productId}`, {
+export async function getProductsRequestId(productId: string, token?: string) {
+  const response = await backendApi.get(`/admin/products/${productId}`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   return response.data.data.product;
 }
 
 // const response = await api.get(`/products?sort=${sort}`);
-export async function publicProducts(sort: string) {
+export async function publicProducts(sort: string, token?: string) {
   let baseURL = '/products';
   if (sort) baseURL += `?sort=${sort}`;
-  const response = await api.get(baseURL);
+  const response = await backendApi.get(baseURL);
   return response.data.data.products;
 }
-
-export async function userCart() {
-  const response = await api.get('/cart', {
+//New logic with cookies
+export async function userCart(token?: string) {
+  const response = await backendApi.get('/cart', {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   // console.log('response', response)
   return response.data.data.products;
+}
+
+export async function timeline(token?: string) {
+  const response = await backendApi.get('/feed/posts/timeline', {
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  // console.log('response', response.data.data.posts);
+  return response.data.data.posts;
+}
+
+export async function getPost(postId: string, token?: string) {
+  const response = await backendApi.get(`/feed/posts/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+  return response.data;
+}
+/*GET
+/feed/posts/user-posts */
+
+export async function userPosts(token?: string) {
+  const response = await backendApi.get('/feed/posts/user-posts', {
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data.data.posts;
 }

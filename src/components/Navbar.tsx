@@ -5,9 +5,33 @@ import { usePathname } from 'next/navigation';
 import * as React from 'react';
 
 import ButtonLink from '@/components/links/ButtonLink';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { logout } from '@/lib/mutations';
 
 export default function Navbar() {
   const pathname = usePathname();
+
+  // const { data: refreshToken } = useQuery<string | undefined>({
+  //   queryKey: ['refreshToken'],
+  //   queryFn: () => undefined,
+  //   enabled: false,
+  // });
+  // console.log(refreshToken);
+
+  const logoutUserMutation = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: (data) => {
+      alert(`Success: ${data.data.message}`);
+    },
+    onError: (error: any) => {
+      alert(`Error: ${error.response?.data?.message}`);
+    },
+  });
+
+  async function onLogout() {
+    logoutUserMutation.mutate();
+    // console.log('User log out');
+  }
 
   return (
     <nav className='sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm'>
@@ -65,6 +89,33 @@ export default function Navbar() {
                 <ShoppingCart />
                 Cart
               </div>
+            </ButtonLink>
+
+            {/* Timeline */}
+            <ButtonLink href='/feed/timeline/post/add'>
+              <div className='flex gap-2'>Add Post</div>
+            </ButtonLink>
+            {/* 
+
+<ButtonLink href='/feed/timeline/post/edit'>
+  <div className='flex gap-2'>
+    Edit Post
+  </div>
+</ButtonLink>
+
+*/}
+
+            <ButtonLink href='/feed/timeline'>
+              <div className='flex gap-2'>Timeline</div>
+            </ButtonLink>
+
+            {/*Returns a list of posts for given user */}
+            <ButtonLink href='/feed/user-posts'>
+              <div className='flex gap-2'>UserPosts</div>
+            </ButtonLink>
+
+            <ButtonLink href='#' onClick={() => onLogout()}>
+              <div className='flex gap-2'>Logout</div>
             </ButtonLink>
           </div>
         </div>

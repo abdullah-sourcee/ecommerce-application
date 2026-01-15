@@ -10,16 +10,24 @@ export default function AdminPageClient({
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const role = JSON.parse(localStorage.getItem('user') || '{}')?.role;
+  // const role = JSON.parse(localStorage.getItem('user') || '{}')?.role;
+
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
-    setIsLoading(false);
-    if (role !== 'admin') {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    setRole(user?.role);
+  }, []);
+
+  useEffect(() => {
+    // console.log('role', role)
+    if ( role && role !== 'admin') {
       router.push('/unauthorized');
     }
+    setIsLoading(false);
   }, [role, router]);
 
-  if (!isLoading) {
+  if (isLoading) {
     return null;
   }
 

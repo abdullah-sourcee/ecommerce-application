@@ -1,69 +1,81 @@
 'use client';
 
-import { createUser } from '@/lib/mutations';
 import { useMutation } from '@tanstack/react-query';
-import { Sunrise } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+
+import { createUser } from '@/lib/mutations';
+
+type SignupFormData = {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  dateOfBirth: string;
+  gender: string;
+  acceptTerms: boolean;
+  profileImage: any;
+};
 
 export default function SignupPage() {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm();
-
-  const createUserMutation = useMutation({
-    mutationFn: (userData) => createUser(userData),
-    onSuccess: () => {
-      alert('User created');
-    },
-    onError: (error) => {
-      alert(`Error: ${error.response.data.message}`);
+  } = useForm<SignupFormData>({
+    defaultValues: {
+      name: '',
+      surname: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      dateOfBirth: '',
+      gender: '',
+      acceptTerms: false,
+      profileImage: '',
     },
   });
 
-  // const onSubmit = async (data) => {
-  //   console.log('Form submitted', data);
-  // };
+  const createUserMutation = useMutation({
+    mutationFn: (userData: FormData) => createUser(userData),
+    onSuccess: () => {
+      alert('User created');
+      reset();
+    },
+    onError: (error: any) => {
+      alert(`Error: ${error.response?.data?.error}`);
+    },
+  });
 
-  const handleCreateUser = async (e) => {
-    e.preventDefault();
+  const handleSignupUser = (data: SignupFormData) => {
+    const profileImageFile = data.profileImage?.[0];
 
-    // Get the file from the form
-    const profileImageFile = watch().profileImage?.[0];
-
-    // Create FormData for multipart/form-data
     const formData = new FormData();
+    formData.append('name', data.name || '');
+    formData.append('surname', data.surname || '');
+    formData.append('email', data.email || '');
+    formData.append('password', data.password || '');
+    formData.append('confirmPassword', data.confirmPassword || '');
+    formData.append('acceptTerms', data.acceptTerms ? 'true' : 'false');
+    formData.append('dateOfBirth', data.dateOfBirth || '');
+    formData.append('gender', data.gender || '');
 
-    // Append all form fields
-    formData.append('name', watch().firstName || '');
-    formData.append('surname', watch().surname || '');
-    formData.append('email', watch().email || '');
-    formData.append('password', watch().password || '');
-    formData.append('confirmPassword', watch().confirmPassword || '');
-    formData.append('acceptTerms', watch().acceptTerms ? 'true' : 'false');
-    formData.append('dateOfBirth', watch().dateOfBirth || '');
-    formData.append('gender', watch().gender || '');
-
-    // Append the file if it exists
     if (profileImageFile) {
       formData.append('profileImage', profileImageFile);
     }
-
     createUserMutation.mutate(formData);
   };
-
-  // console.log(watch());
 
   return (
     <div className='flex items-center justify-center content-center flex-col'>
       <h1>Signup Page</h1>
-      <form method='post'>
+      <form onSubmit={handleSubmit(handleSignupUser)}>
         {/* Name */}
         <div className='flex gap-8 mt-3'>
           <input
-            {...register('firstName', { required: 'Name is required' })}
+            {...register('name')}
             type='text'
             placeholder='First Name'
             className='input'
@@ -101,10 +113,13 @@ export default function SignupPage() {
               type='email'
               placeholder='mail@site.com'
               required
-              {...register('email')}
+              {...register('email', { required: 'Email is required' })}
             />
+            {errors.email && (
+              <p className='text-red-500'>{errors.email.message}</p>
+            )}
           </label>
-          <div className='validator-hint hidden'>Enter valid email address</div>
+          {/* <div className='validator-hint hidden'>Enter valid email address</div> */}
         </div>
 
         {/* Password */}
@@ -115,19 +130,8 @@ export default function SignupPage() {
             className='input validator'
             required
             placeholder='New Password'
-            minLength='6'
-            // pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-            // title='Must be more than 8 characters, including number, lowercase letter, uppercase letter'
+            minLength={6}
           />
-          {/* <p className='validator-hint'>
-          Must be more than 8 characters, including
-          <br />
-          At least one number
-          <br />
-          At least one lowercase letter
-          <br />
-          At least one uppercase letter
-        </p> */}
         </div>
 
         {/* Confirm Password */}
@@ -167,8 +171,6 @@ export default function SignupPage() {
         </div>
         {/* Accept Terms */}
         <div className='mt-3 flex gap-3'>
-          {/* <label>Accept Terms?</label>
-          <input type='checkbox' {...register('acceptTerms')} /> */}
           <fieldset className='fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4'>
             <legend className='fieldset-legend'>
               Accepts Terms and Conditions
@@ -195,12 +197,8 @@ export default function SignupPage() {
 
         {/* Button */}
         <div className='mt-3'>
-          <button
-            onClick={handleCreateUser}
-            type='submit'
-            className='btn btn-wide mt-3 bg-blue-400'
-          >
-            Sign Up
+          <button type='submit' className='btn btn-wide mt-3 bg-blue-400'>
+            {isSubmitting ? 'Signing up...' : 'Sign Up'}
           </button>
         </div>
       </form>

@@ -1,48 +1,61 @@
 'use client';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { publicProducts } from '@/lib/queries';
-import { useState } from 'react';
-import { addProductToCart } from '@/lib/mutations';
+import { useMemo, useState } from 'react';
 
-export default function Products() {
+import { addProductToCart } from '@/lib/mutations';
+import { publicProducts } from '@/lib/queries';
+
+export default function ProductsPage() {
+  // const data = props.product;
+  // const token = props.token;
+
   const [sort, setSort] = useState('');
 
-  const { data, error, isError, isLoading } = useQuery({
-    queryKey: ['products', sort],
-    queryFn: () => publicProducts(sort),
+  const { data: token } = useQuery<string | null | undefined>({
+    queryKey: ['token'],
+    queryFn: () => null,
+  });
+
+  const { data } = useQuery({
+    queryKey: ['products', '', token],
+    queryFn: () => publicProducts('', token ?? undefined),
   });
 
   const addToCartProductMutation = useMutation({
-    mutationFn: (productId) => addProductToCart(productId),
+    mutationFn: (productId: string) => {
+      if (!token) {
+        throw new Error('Token is required');
+      }
+      return addProductToCart(productId, token);
+    },
     onSuccess: () => {
       alert('Product added to cart');
     },
-    onError: (error) => {
+    onError: (error: any) => {
       alert(`Error: ${error.response.data.message}`);
     },
   });
 
-  async function handleAddToCartProduct(productId) {
+  async function handleAddToCartProduct(productId: any) {
     addToCartProductMutation.mutate(productId);
   }
 
-  if (isLoading) {
-    return <div>Loading Products...</div>;
-  }
+  const sortedData = useMemo(() => {
+    if (!sort || !data) return data;
 
-  if (isError) {
-    return <div>Something went wrong: {error.message}</div>;
-  }
-  // console.log('asdfgh', sort);
+    const sorted = [...data];
+
+    if (sort === 'price') {
+      sorted.sort((a, b) => a.price - b.price); // Price sorted from Low to high
+    } else if (sort === 'rating') {
+      sorted.sort((a, b) => (b.rating || 0) - (a.rating || 0)); // Rating sorted from high to low
+    }
+    return sorted;
+  }, [sort, data]);
 
   return (
-    <div className='px-16'>
-      <div className='flex justify-center'>
-        <h1>All Products Page</h1>
-      </div>
-
-      {/* Sorting Drop Down */}
+    <>
       <div className='flex justify-end'>
         <details className='dropdown dropdown-end'>
           <summary className='btn m-1 w-52'>Sort</summary>
@@ -59,7 +72,7 @@ export default function Products() {
 
       {/* All Products */}
       <div className='flex gap-10'>
-        {data.map((product) => (
+        {sortedData?.map((product: any) => (
           <div
             className='mt-6 card w-96 bg-base-100 card-lg shadow-sm'
             key={product._id}
@@ -80,6 +93,6 @@ export default function Products() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
