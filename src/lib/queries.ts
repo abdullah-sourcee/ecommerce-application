@@ -22,13 +22,6 @@ export async function getProductsRequestId(productId: string, token?: string) {
   return response.data.data.product;
 }
 
-// const response = await api.get(`/products?sort=${sort}`);
-export async function publicProducts(sort: string, token?: string) {
-  let baseURL = '/products';
-  if (sort) baseURL += `?sort=${sort}`;
-  const response = await backendApi.get(baseURL);
-  return response.data.data.products;
-}
 //New logic with cookies
 export async function userCart(token?: string) {
   const response = await backendApi.get('/cart', {
@@ -72,4 +65,23 @@ export async function userPosts(token?: string) {
     },
   });
   return response.data.data.posts;
+}
+
+// const response = await api.get(`/products?sort=${sort}`);
+export async function publicProducts(sort: string, token?: string) {
+  let baseURL = '/products';
+  if (sort) baseURL += `?sort=${sort}`;
+  const response = await backendApi.get(baseURL);
+  return response.data.data.products;
+}
+
+/*
+Returns a list of posts 
+(can search, sort by each filed, filter by each filed)
+*/
+export async function listOfPosts(search: string, token?: string) {
+  let baseURL = '/feed/posts';
+  if (search) baseURL += `?search=${search}`;
+  const response = await backendApi.get(baseURL);
+  return response.data.data.posts || [];
 }

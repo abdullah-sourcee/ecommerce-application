@@ -1,15 +1,9 @@
 'use client';
-// import { useQuery } from '@tanstack/react-query';
-
-// import { timeline } from '@/lib/queries';
-
-// import EmptyPage from '@/components/EmptyPage';
 import PostCard from '@/components/PostCard';
 import ShowLoader from '@/components/ShowLoader';
-import { timeline } from '@/lib/queries';
+import { listOfPosts, timeline } from '@/lib/queries';
 import { useQuery } from '@tanstack/react-query';
-// import ShowError from '@/components/ShowError';
-// import ShowLoader from '@/components/ShowLoader';
+import { useState } from 'react';
 
 export default function TimelinePage() {
   // const data = props.timelinePost;
@@ -39,10 +33,34 @@ export default function TimelinePage() {
   // console.log('data', data);
   //   console.log(typeof data);
   // console.log(data);
+  const [search, setSearch] = useState('');
 
+  const { data: searchedData, refetch } = useQuery({
+    queryKey: ['searched', search],
+    queryFn: () => listOfPosts(search),
+  });
+
+  function onSearch() {
+    refetch();
+  }
+  const displayData =
+    searchedData && searchedData.length > 0 ? searchedData : data;
   return (
     <div className='flex flex-col gap-6 items-center mt-8'>
-      {data.map((item: any) => (
+      <label>
+        Search:
+        <input
+          type='text'
+          placeholder='e.g. food'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
+        <button onClick={onSearch} className='btn'>
+          Search
+        </button>
+      </label>
+
+      {displayData.map((item: any) => (
         <PostCard title={item.title} content={item.content} key={item._id} />
       ))}
     </div>

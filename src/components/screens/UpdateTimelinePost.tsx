@@ -7,9 +7,11 @@ import { useForm } from 'react-hook-form';
 
 import { updatePost } from '@/lib/mutations';
 import { getPost } from '@/lib/queries';
+import { useRouter } from 'next/navigation';
 
 export default function UpdatePost() {
   const params = useParams();
+  const router = useRouter(); // The useRouter hook allows you to programmatically change routes inside Client Components.
   const postId = params.id as string;
 
   const { data: token } = useQuery({
@@ -59,7 +61,8 @@ export default function UpdatePost() {
     },
     onSuccess: () => {
       alert('Post updated');
-      reset();
+      router.push('/feed/user-posts'); //Perform a client-side navigation to the provided route. 
+      // reset();
     },
     onError: (error: any) => {
       alert(`Error: ${error.response.data.message}`);

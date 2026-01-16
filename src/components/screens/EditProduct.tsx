@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { deleteProduct } from '@/lib/mutations';
 import AdminPageClient from '@/components/AdminPageClient';
 import { fetchProducts } from '@/lib/queries';
-import { cookies } from 'next/headers';
 
 export default function EditProductScreen() {
   const { data: token } = useQuery({
@@ -89,7 +88,7 @@ export default function EditProductScreen() {
         </table>
       </div>
     </div>
-  )
+  );
 }
 
 /*
