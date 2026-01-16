@@ -1,13 +1,12 @@
 'use client';
-import { useEffect } from 'react';
-
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { updatePost } from '@/lib/mutations';
 import { getPost } from '@/lib/queries';
-import { useRouter } from 'next/navigation';
 
 export default function UpdatePost() {
   const params = useParams();
@@ -61,7 +60,7 @@ export default function UpdatePost() {
     },
     onSuccess: () => {
       alert('Post updated');
-      router.push('/feed/user-posts'); //Perform a client-side navigation to the provided route. 
+      router.push('/feed/user-posts'); //Perform a client-side navigation to the provided route.
       // reset();
     },
     onError: (error: any) => {

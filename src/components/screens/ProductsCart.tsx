@@ -15,7 +15,7 @@ export default function CartPage() {
 
   const { data, error, isError, isLoading, refetch } = useQuery({
     queryKey: ['cart', token],
-    queryFn: () => userCart(token ?? undefined), 
+    queryFn: () => userCart(token ?? undefined),
     /*Explanation: token ?? undefined converts null to undefined, 
     matching userCart's parameter type. The ?? operator only converts 
     null/undefined, so string values pass through unchanged. */

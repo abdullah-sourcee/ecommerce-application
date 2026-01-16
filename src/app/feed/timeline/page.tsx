@@ -1,11 +1,13 @@
-import TimelinePage from '@/components/screens/Timeline';
-import { timeline } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { timeline } from '@/lib/queries';
+
+import TimelinePage from '@/components/screens/Timeline';
 
 export default async function Page() {
   const cookieStore = await cookies();

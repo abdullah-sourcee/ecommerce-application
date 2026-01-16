@@ -1,11 +1,13 @@
-import EditProductScreen from '@/components/screens/EditProduct';
-import { fetchProducts } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { fetchProducts } from '@/lib/queries';
+
+import EditProductScreen from '@/components/screens/EditProduct';
 
 export default async function EditProductPage() {
   const cookieStore = await cookies();

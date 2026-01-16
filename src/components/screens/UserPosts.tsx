@@ -1,9 +1,11 @@
 'use client';
-import PostCard from '@/components/PostCard';
-import ShowLoader from '@/components/ShowLoader';
-import { userPosts } from '@/lib/queries';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+
+import { userPosts } from '@/lib/queries';
+
+import PostCard from '@/components/PostCard';
+import ShowLoader from '@/components/ShowLoader';
 
 export default function UserPostsScreen() {
   // const data = props.post;

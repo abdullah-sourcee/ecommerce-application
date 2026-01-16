@@ -2,7 +2,7 @@ type Props = {
   title: string;
 };
 
-const ShowLoader = ({ title = ''}: Props) => {
+const ShowLoader = ({ title = '' }: Props) => {
   // const { title = '' } = props;
 
   return (

@@ -1,11 +1,10 @@
 'use client';
-import { useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { updateProduct } from '@/lib/mutations';
-import AdminPageClient from '@/components/AdminPageClient';
 import { getProductsRequestId } from '@/lib/queries';
 
 export default function UpdateProductScreen() {

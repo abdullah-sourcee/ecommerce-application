@@ -31,7 +31,7 @@ export default function LoginPage() {
       reset();
     },
     onError: (error: any) => {
-      console.log("error fromlogin is::",error?.response?.data?.message);
+      console.log('error fromlogin is::', error?.response?.data?.message);
       alert(`Error: ${error.response?.data?.message || error.message}`);
     },
   });

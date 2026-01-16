@@ -1,5 +1,6 @@
-import { backendApi } from '@/lib/axios';
 import { cookies } from 'next/headers';
+
+import { backendApi } from '@/lib/axios';
 
 /* 
 export async function POST(request: Request) {

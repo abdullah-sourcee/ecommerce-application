@@ -5,16 +5,10 @@ import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
+import Navbar from '@/components/Navbar';
 import QueryProvider from '@/components/QueryProvider';
 
-import Navbar from '@/components/Navbar';
 import { siteConfig } from '@/constant/config';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
-import { cookies } from 'next/headers';
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them

@@ -1,12 +1,13 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { ShoppingCart } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 
-import ButtonLink from '@/components/links/ButtonLink';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { logout } from '@/lib/mutations';
+
+import ButtonLink from '@/components/links/ButtonLink';
 
 export default function Navbar() {
   const pathname = usePathname();

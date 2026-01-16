@@ -4,7 +4,6 @@ import { Pencil, Trash } from 'lucide-react';
 import Link from 'next/link';
 
 import { deleteProduct } from '@/lib/mutations';
-import AdminPageClient from '@/components/AdminPageClient';
 import { fetchProducts } from '@/lib/queries';
 
 export default function EditProductScreen() {

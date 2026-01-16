@@ -1,4 +1,3 @@
-import { backendApi } from '@/lib/axios';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {

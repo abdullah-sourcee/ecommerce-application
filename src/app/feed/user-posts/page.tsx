@@ -1,11 +1,13 @@
-import UserPostsScreen from '@/components/screens/UserPosts';
-import { userPosts } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { userPosts } from '@/lib/queries';
+
+import UserPostsScreen from '@/components/screens/UserPosts';
 
 export default async function UserPostsPage() {
   const queryClient = new QueryClient();

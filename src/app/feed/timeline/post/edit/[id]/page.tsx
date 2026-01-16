@@ -1,11 +1,13 @@
-import UpdatePost from '@/components/screens/UpdateTimelinePost';
-import { getPost } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { getPost } from '@/lib/queries';
+
+import UpdatePost from '@/components/screens/UpdateTimelinePost';
 
 export default async function UpdateTimelinePostById({
   params,

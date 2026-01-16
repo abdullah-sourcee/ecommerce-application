@@ -17,15 +17,18 @@ export async function POST(request: Request) {
       // Get the actual error from backend
       const errorData = await backendResponse.json();
       console.log('Backend error:', errorData);
-      
-      return new Response(JSON.stringify({ 
-        error: errorData.message || 'Signup failed',
-        details: errorData,
-        statusCode: backendResponse.status
-      }), {
-        status: backendResponse.status, // Return the actual status (409, etc.)
-        headers: { 'Content-Type': 'application/json' },
-      });
+
+      return new Response(
+        JSON.stringify({
+          error: errorData.message || 'Signup failed',
+          details: errorData,
+          statusCode: backendResponse.status,
+        }),
+        {
+          status: backendResponse.status, // Return the actual status (409, etc.)
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     const data = await backendResponse.json();

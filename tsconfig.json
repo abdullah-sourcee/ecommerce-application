@@ -31,8 +31,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/signup/page.tsx",
-    "src/app/login/page.tsx"
-, "src/app/feed/timeline/post/add/page.tsx"  ],
+    "src/app/login/page.tsx",
+    "src/app/feed/timeline/post/add/page.tsx"
+  ],
   "exclude": ["node_modules"],
   "moduleResolution": ["node_modules", ".next", "node"]
 }

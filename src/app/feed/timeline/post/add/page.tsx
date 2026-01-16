@@ -1,10 +1,11 @@
-import AddPostScreen from '@/components/screens/AddPost';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import AddPostScreen from '@/components/screens/AddPost';
 
 export default async function AddPostPage() {
   const cookieStore = await cookies();

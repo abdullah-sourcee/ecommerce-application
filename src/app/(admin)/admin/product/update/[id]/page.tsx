@@ -1,11 +1,13 @@
-import UpdateProductScreen from '@/components/screens/UpdateProduct';
-import { getProductsRequestId } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { getProductsRequestId } from '@/lib/queries';
+
+import UpdateProductScreen from '@/components/screens/UpdateProduct';
 
 export default async function UpdateProductPage({
   params,

@@ -1,9 +1,9 @@
-import { backendApi } from '@/lib/axios';
 import { cookies } from 'next/headers';
+
+import { backendApi } from '@/lib/axios';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
     const cookieStore = await cookies();
     const refreshToken = cookieStore.get('refreshToken')?.value;
     const token = cookieStore.get('token')?.value;
@@ -38,7 +38,9 @@ export async function POST(request: Request) {
           },
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error('Logout API failed:', error);
+    }
 
     // console.log('response is::', backendResponse?.data);
     // if (!backendResponse.ok) {

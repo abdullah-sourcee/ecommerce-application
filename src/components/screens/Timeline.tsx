@@ -1,13 +1,20 @@
 'use client';
-import PostCard from '@/components/PostCard';
-import ShowLoader from '@/components/ShowLoader';
-import { listOfPosts, timeline } from '@/lib/queries';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+
+import { listOfPosts, timeline } from '@/lib/queries';
+
+import PostCard from '@/components/PostCard';
+import ShowLoader from '@/components/ShowLoader';
 
 export default function TimelinePage() {
   // const data = props.timelinePost;
 
+  const [search, setSearch] = useState('');
+  const { data: searchedData, refetch } = useQuery({
+    queryKey: ['searched', search],
+    queryFn: () => listOfPosts(search),
+  });
   const { data: token } = useQuery<string | null | undefined>({
     queryKey: ['token'],
     queryFn: () => null,
@@ -33,12 +40,6 @@ export default function TimelinePage() {
   // console.log('data', data);
   //   console.log(typeof data);
   // console.log(data);
-  const [search, setSearch] = useState('');
-
-  const { data: searchedData, refetch } = useQuery({
-    queryKey: ['searched', search],
-    queryFn: () => listOfPosts(search),
-  });
 
   function onSearch() {
     refetch();

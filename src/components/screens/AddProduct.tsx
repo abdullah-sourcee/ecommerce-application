@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 
 import { addProduct } from '@/lib/mutations';
 
-import AdminPageClient from '@/components/AdminPageClient';
 import CustomDropdown from '@/components/CustomDropdown';
 
 export default function AddProductScreen() {
@@ -82,11 +81,11 @@ export default function AddProductScreen() {
   ];
 
   return (
-      <div className='flex items-center justify-center content-center flex-col'>
-        <h1>Add Product</h1>
-        <form onSubmit={handleSubmit(handleAddProduct)}>
-          {/* Category */}
-          {/* <div className='mt-3 flex gap-4 items-center'>
+    <div className='flex items-center justify-center content-center flex-col'>
+      <h1>Add Product</h1>
+      <form onSubmit={handleSubmit(handleAddProduct)}>
+        {/* Category */}
+        {/* <div className='mt-3 flex gap-4 items-center'>
             <label className='w-32 text-left'>Category:</label>
             <input
               {...register('category', { required: 'Category is required' })}
@@ -96,95 +95,95 @@ export default function AddProductScreen() {
             />
           </div> */}
 
-          <CustomDropdown
-            label='Category'
-            id='category'
-            options={categoryOptions}
-            register={register('category')}
+        <CustomDropdown
+          label='Category'
+          id='category'
+          options={categoryOptions}
+          register={register('category')}
+        />
+
+        {/* name */}
+        <div className='mt-3 flex gap-4 items-center'>
+          {' '}
+          <label className='w-32 text-left'>Product Name:</label>
+          <input
+            {...register('name', { required: 'Product Name is required' })}
+            type='text'
+            placeholder='Product Name'
+            className='input'
           />
+        </div>
 
-          {/* name */}
-          <div className='mt-3 flex gap-4 items-center'>
-            {' '}
-            <label className='w-32 text-left'>Product Name:</label>
-            <input
-              {...register('name', { required: 'Product Name is required' })}
-              type='text'
-              placeholder='Product Name'
-              className='input'
-            />
-          </div>
+        {/* Description */}
+        <div className='mt-3 flex gap-4 items-center'>
+          {' '}
+          <label className='w-32 text-left'>Product Desc.:</label>{' '}
+          <input
+            {...register('description', {
+              required: 'Product Description is required',
+            })}
+            type='text'
+            placeholder='Product Description'
+            className='input'
+          />
+        </div>
 
-          {/* Description */}
-          <div className='mt-3 flex gap-4 items-center'>
-            {' '}
-            <label className='w-32 text-left'>Product Desc.:</label>{' '}
-            <input
-              {...register('description', {
-                required: 'Product Description is required',
-              })}
-              type='text'
-              placeholder='Product Description'
-              className='input'
-            />
-          </div>
+        {/* brand */}
 
-          {/* brand */}
+        <div className='mt-3 flex gap-4 items-center'>
+          {' '}
+          <label className='w-32 text-left'>Product Brand:</label>{' '}
+          <input
+            {...register('brand', { required: 'Product Brand is required' })}
+            type='text'
+            placeholder='Product Brand'
+            className='input'
+          />
+        </div>
 
-          <div className='mt-3 flex gap-4 items-center'>
-            {' '}
-            <label className='w-32 text-left'>Product Brand:</label>{' '}
-            <input
-              {...register('brand', { required: 'Product Brand is required' })}
-              type='text'
-              placeholder='Product Brand'
-              className='input'
-            />
-          </div>
+        {/* price */}
+        <div className='mt-3 flex gap-4 items-center'>
+          {' '}
+          <label className='w-32 text-left'>Product Price:</label>{' '}
+          <input
+            {...register('price', { required: 'Product Price is required' })}
+            type='number'
+            placeholder='Product Price'
+            className='input'
+          />
+        </div>
 
-          {/* price */}
-          <div className='mt-3 flex gap-4 items-center'>
-            {' '}
-            <label className='w-32 text-left'>Product Price:</label>{' '}
-            <input
-              {...register('price', { required: 'Product Price is required' })}
-              type='number'
-              placeholder='Product Price'
-              className='input'
-            />
-          </div>
+        {/* stock */}
+        <div className='mt-3 flex gap-4 items-center'>
+          {' '}
+          <label className='w-32 text-left'>Product Stock:</label>{' '}
+          <input
+            {...register('stock', { required: 'Product Stock is required' })}
+            type='text'
+            placeholder='Product Stock'
+            className='input'
+          />
+        </div>
 
-          {/* stock */}
-          <div className='mt-3 flex gap-4 items-center'>
-            {' '}
-            <label className='w-32 text-left'>Product Stock:</label>{' '}
-            <input
-              {...register('stock', { required: 'Product Stock is required' })}
-              type='text'
-              placeholder='Product Stock'
-              className='input'
-            />
-          </div>
-
-          {/*Product Image */}
-          <div className='mt-3 flex gap-4 items-center'>
-            <label className='w-32 text-left'>Product Image:</label>{' '}
-            <input
-              {...register('productImages')}
-              type='file'
-              className='file-input'
-            />
-          </div>
-          <div className='mt-3 flex items-center justify-center'>
-            <button
-              disabled={isSubmitting}
-              type='submit'
-              className='btn btn-wide mt-3 bg-blue-400'
-            >
-              Add Product
-            </button>
-          </div>
-        </form>
-      </div>
+        {/*Product Image */}
+        <div className='mt-3 flex gap-4 items-center'>
+          <label className='w-32 text-left'>Product Image:</label>{' '}
+          <input
+            {...register('productImages')}
+            type='file'
+            className='file-input'
+          />
+        </div>
+        <div className='mt-3 flex items-center justify-center'>
+          <button
+            disabled={isSubmitting}
+            type='submit'
+            className='btn btn-wide mt-3 bg-blue-400'
+          >
+            Add Product
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -21,7 +21,7 @@ export default function AdminPageClient({
 
   useEffect(() => {
     // console.log('role', role)
-    if ( role && role !== 'admin') {
+    if (role && role !== 'admin') {
       router.push('/unauthorized');
     }
     setIsLoading(false);

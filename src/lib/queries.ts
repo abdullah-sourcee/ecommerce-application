@@ -1,5 +1,5 @@
 // import api from '@/lib/axios';
-import { backendApi, externalApi } from './axios';
+import { backendApi } from './axios';
 
 export async function fetchProducts(token?: string) {
   const response = await backendApi.get('/admin/products', {

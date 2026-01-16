@@ -1,11 +1,13 @@
-import CartPage from '@/components/screens/ProductsCart';
-import { userCart } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import { userCart } from '@/lib/queries';
+
+import CartPage from '@/components/screens/ProductsCart';
 
 export default async function CartScreen() {
   const cookieStore = await cookies();

@@ -1,10 +1,11 @@
-import AddProductScreen from '@/components/screens/AddProduct';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+
+import AddProductScreen from '@/components/screens/AddProduct';
 
 export default async function AddProductPage() {
   const cookieStore = await cookies();

@@ -1,5 +1,3 @@
-import ProductsPage from '@/components/screens/ProductsPage';
-import { publicProducts } from '@/lib/queries';
 import {
   dehydrate,
   HydrationBoundary,
@@ -7,8 +5,11 @@ import {
 } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 
-export default async function ProductsScreen() {
+import { publicProducts } from '@/lib/queries';
 
+import ProductsPage from '@/components/screens/ProductsPage';
+
+export default async function ProductsScreen() {
   const cookieStore = await cookies();
   // const token = cookieStore.get('token');
 
