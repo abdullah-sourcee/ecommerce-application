@@ -1,133 +1,216 @@
-# Next.js + Tailwind CSS + TypeScript Starter and Boilerplate
+# E-Commerce Application with Social Timeline
 
-<div align="center">
-  <h2>🔋 ts-nextjs-tailwind-starter</h2>
-  <p>Next.js + Tailwind CSS + TypeScript starter packed with useful development features.</p>
-  <p>Made by <a href="https://theodorusclarence.com">Theodorus Clarence</a></p>
+A modern, full-stack e-commerce platform built with Next.js 15, featuring product management, shopping cart functionality, and an integrated social timeline for user interactions.
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/theodorusclarence/ts-nextjs-tailwind-starter)](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/stargazers)
-[![Depfu](https://badges.depfu.com/badges/fc6e730632ab9dacaf7df478a08684a7/overview.svg)](https://depfu.com/github/theodorusclarence/ts-nextjs-tailwind-starter?project_id=30160)
-[![Last Update](https://img.shields.io/badge/deps%20update-every%20sunday-blue.svg)](https://shields.io/)
+## 🚀 Features
 
-</div>
+### E-Commerce Functionality
 
-## Features
+- **Product Management**: Full CRUD operations for products (Create, Read, Update, Delete)
+- **Shopping Cart**: Add to cart, manage quantities, and calculate totals
+- **User Authentication**: Secure login/logout with JWT tokens and refresh token mechanism
+- **Protected Routes**: Middleware-based route protection for authenticated users
 
-This repository is 🔋 battery packed with:
+### Social Features
 
-- ⚡️ Next.js 14 with App Router
-- ⚛️ React 18
-- ✨ TypeScript
-- 💨 Tailwind CSS 3 — Configured with CSS Variables to extend the **primary** color
-- 💎 Pre-built Components — Components that will **automatically adapt** with your brand color, [check here for the demo](https://tsnext-tw.thcl.dev/components)
-- 🃏 Jest — Configured for unit testing
-- 📈 Absolute Import and Path Alias — Import components using `@/` prefix
-- 📏 ESLint — Find and fix problems in your code, also will **auto sort** your imports
-- 💖 Prettier — Format your code consistently
-- 🐶 Husky & Lint Staged — Run scripts on your staged files before they are committed
-- 🤖 Conventional Commit Lint — Make sure you & your teammates follow conventional commit
-- ⏰ Release Please — Generate your changelog by activating the `release-please` workflow
-- 👷 Github Actions — Lint your code on PR
-- 🚘 Automatic Branch and Issue Autolink — Branch will be automatically created on issue **assign**, and auto linked on PR
-- 🔥 Snippets — A collection of useful snippets
-- 👀 Open Graph Helper Function — Awesome open graph generated using [og](https://github.com/theodorusclarence/og), fork it and deploy!
-- 🗺 Site Map — Automatically generate sitemap.xml
-- 📦 Expansion Pack — Easily install common libraries, additional components, and configs.
+- **Timeline/Feed**: Social media-style timeline for user posts
+- **Post Interactions**: Like posts
+- **User Posts**: Create, update, and manage personal posts
+- **Real-time Updates**: React Query for optimized data fetching and caching
 
-See the 👉 [feature details and changelog](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/blob/main/CHANGELOG.md) 👈 for more.
+## 🛠️ Tech Stack
 
-You can also check all of the **details and demos** on my blog post:
+### Core Framework
 
-- [One-stop Starter to Maximize Efficiency on Next.js & Tailwind CSS Projects](https://theodorusclarence.com/blog/one-stop-starter)
+- **Next.js 15** - React framework with App Router
+- **React 19** - Latest React features
+- **TypeScript** - Type-safe development
 
-## Getting Started
+### Styling & UI
 
-### 1. Clone this template using one of the three ways
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **DaisyUI** - Tailwind CSS component library
+- **Lucide React** - Beautiful icon library
 
-1. Use this repository as template
+### State Management & Data Fetching
 
-   **Disclosure:** by using this repository as a template, there will be an attribution on your repository.
+- **TanStack Query (React Query)** - Server state management
+- **Axios** - HTTP client for API requests
+- **React Hook Form** - Form validation and management
 
-   I'll appreciate if you do, so this template can be known by others too 😄
+### Development Tools
 
-   ![Use as template](https://user-images.githubusercontent.com/55318172/129183039-1a61e68d-dd90-4548-9489-7b3ccbb35810.png)
+- **ESLint** - Code linting with auto-import sorting
+- **Prettier** - Code formatting
+- **Husky** - Git hooks for pre-commit checks
+- **Jest** - Unit testing framework
+- **TypeScript** - Static type checking
 
-2. Using `create-next-app`
+## 📁 Project Structure
 
-   ```bash
-   pnpm create next-app  -e https://github.com/theodorusclarence/ts-nextjs-tailwind-starter ts-pnpm
-   ```
-
-   If you still want to use **pages directory** (_is not actively maintained_) you can use this command
-
-   ```bash
-   npx create-next-app -e https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/tree/pages-directory project-name
-   ```
-
-3. Using `degit`
-
-   ```bash
-   npx degit theodorusclarence/ts-nextjs-tailwind-starter YOUR_APP_NAME
-   ```
-
-4. Deploy to Vercel
-
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Ftheodorusclarence%2Fts-nextjs-tailwind-starter)
-
-### 2. Install dependencies
-
-It is encouraged to use **pnpm** so the husky hooks can work properly.
-
-```bash
-pnpm install
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes (login, logout, etc.)
+│   ├── (user)/            # User-facing pages
+│   └── layout.tsx         # Root layout
+├── components/
+│   ├── screens/           # Page-level components
+│   │   ├── Timeline.tsx
+│   │   ├── ProductsCart.tsx
+│   │   ├── UserPosts.tsx
+│   │   └── ...
+│   └── ui/                # Reusable UI components
+├── lib/
+│   ├── axios.ts           # Axios configuration
+│   ├── mutations.ts       # React Query mutations
+│   └── queries.ts         # React Query queries
+├── constant/              # App constants
+└── styles/                # Global styles
 ```
 
-### 3. Run the development server
+## 🚦 Getting Started
 
-You can start the server using this command:
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended)
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <your-repo-url>
+   cd ts-nextjs-tailwind-starter
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the root directory:
+
+   ```env
+   NEXT_PUBLIC_API_URL=your_api_url_here
+   ```
+
+4. **Run the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+5. **Open your browser**
+
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🔧 Available Scripts
 
 ```bash
-pnpm dev
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run ESLint
+pnpm lint:fix     # Fix ESLint errors and format code
+pnpm typecheck    # Run TypeScript type checking
+pnpm test         # Run tests
+pnpm test:watch   # Run tests in watch mode
+pnpm format       # Format code with Prettier
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start editing the page by modifying `src/pages/index.tsx`.
+## 🔐 Authentication Flow
 
-### 4. Change defaults
+This application uses a JWT-based authentication system with refresh tokens:
 
-There are some things you need to change including title, urls, favicons, etc.
+1. **Login**: User credentials are sent to `/api/login`
+2. **Token Storage**: Access token and refresh token stored in cookies
+3. **Protected Routes**: Middleware checks authentication status
+4. **Token Refresh**: Automatic token refresh using refresh token
+5. **Logout**: Clears tokens and redirects to login
 
-Find all comments with !STARTERCONF, then follow the guide.
+## 📊 Data Fetching Strategy
 
-Don't forget to change the package name in package.json
+The app uses **React Query** with server-side rendering:
 
-### 5. Commit Message Convention
+- **Server Components**: Prefetch data using `prefetchQuery`
+- **Hydration**: Dehydrate server state and pass to client
+- **Client Components**: Rehydrate and consume cached data
+- **Optimistic Updates**: Immediate UI updates with background revalidation
 
-This starter is using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), it is mandatory to use it to commit changes.
+## 🎨 Styling Approach
 
-## Projects using ts-nextjs-tailwind-starter
+- **Tailwind CSS**: Utility-first styling
+- **DaisyUI**: Pre-built component themes
+- **CSS Variables**: Custom color schemes
+- **Responsive Design**: Mobile-first approach
 
-<!--
-TEMPLATE
-- [sitename](https://sitelink.com) ([Source](https://github.com/githublink))
-- [sitename](https://sitelink.com)
--->
+## 🧪 Testing
 
-- [theodorusclarence.com](https://theodorusclarence.com) ([Source](https://github.com/theodorusclarence/theodorusclarence.com))
-- [Notiolink](https://notiolink.thcl.dev/) ([Source](https://github.com/theodorusclarence/notiolink))
-- [NextJs + Materia UI + Typescript](https://github.com/AlexStack/nextjs-materia-mui-typescript-hook-form-scaffold-boilerplate-starter)
+Unit tests are configured with Jest and React Testing Library:
 
-Are you using this starter? Please add your page (and repo) to the end of the list via a [Pull Request](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/edit/main/README.md). 😃
+```bash
+pnpm test        # Run all tests
+pnpm test:watch  # Run tests in watch mode
+```
 
-## Expansion Pack 📦
+## 📝 Code Quality
 
-This starter is now equipped with an [expansion pack](https://github.com/theodorusclarence/expansion-pack).
+- **ESLint**: Enforces code quality and consistency
+- **Prettier**: Automatic code formatting
+- **Husky**: Pre-commit hooks for linting and formatting
+- **TypeScript**: Strict type checking
+- **Conventional Commits**: Standardized commit messages
 
-You can easily add expansion such as React Hook Form + Components, Storybook, and more just using a single command line.
+## 🚀 Deployment
 
-<https://user-images.githubusercontent.com/55318172/146631994-e1cac137-1664-4cfe-950b-a96decc1eaa6.mp4>
+### Vercel (Recommended)
 
-Check out the [expansion pack repository](https://github.com/theodorusclarence/expansion-pack) for the commands
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Configure environment variables
+4. Deploy!
 
-### App Router Update
+### Other Platforms
 
-Due to App Router update, the expansion pack is currently **outdated**. It will be updated in the future. You can still use them by copy and pasting the files.
+Build the production bundle:
+
+```bash
+pnpm build
+pnpm start
+```
+
+## 🔄 Recent Updates
+
+- ✅ Implemented refresh token authentication with cookies
+- ✅ Fixed TypeScript type errors in Timeline and Product components
+- ✅ Added React Query hydration for optimized data fetching
+- ✅ Implemented CRUD operations for products and posts
+- ✅ Added shopping cart with total calculation using reduce method
+- ✅ Fixed token type handling across components
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes using conventional commits
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is private and proprietary.
+
+## 🙏 Acknowledgments
+
+- Built on top of [ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter) by Theodorus Clarence
+- Icons by [Lucide](https://lucide.dev/)
+- UI components by [DaisyUI](https://daisyui.com/)
+
+---
+
+**Note**: This is an active development project. Features and documentation are continuously being updated.
