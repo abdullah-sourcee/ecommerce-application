@@ -168,3 +168,33 @@ export async function refreshAccessToken() {
   );
   return res;
 }
+
+/*
+PUT
+/feed/posts/comment
+Add comment to post
+*/
+export async function addComment({
+  postId,
+  comment,
+  token,
+}: {
+  postId: string;
+  comment: string;
+  token: string;
+}) {
+  const res = await backendApi.put(
+    '/feed/posts/comment',
+    {
+      postId,
+      comment,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res.data;
+}
