@@ -15,7 +15,6 @@ export default async function UpdateProductPage({
   params: Promise<{ id: string }>;
 }) {
   const cookieStore = await cookies();
-  // const token = cookieStore.get('token');
   const { id } = await params;
   const queryClient = new QueryClient();
 

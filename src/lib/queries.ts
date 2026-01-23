@@ -54,6 +54,21 @@ export async function getPost(postId: string, token?: string) {
   });
   return response.data;
 }
+
+/*
+GET
+/feed/posts/comment/{postId}
+Get all comments in the given post
+*/
+export async function getComment(postId: string, token?: string) {
+  const response = await backendApi.get(`/feed/posts/comment/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response?.data?.data?.comments;
+}
+
 /*GET
 /feed/posts/user-posts */
 
